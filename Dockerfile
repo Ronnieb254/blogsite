@@ -6,16 +6,16 @@ FROM node:24
 WORKDIR /app
 
 # Copy package.json and yarn.lock to leverage Docker caching
-COPY package.json yarn.lock ./
+COPY package.json  ./
 
 # Install dependencies
-RUN yarn install 
+RUN npm install 
 
 # Copy the rest of the application files
 COPY . .
 
 # Build the React app
-RUN yarn build
+RUN npm run build
 
 # Expose the port
 EXPOSE 8080
