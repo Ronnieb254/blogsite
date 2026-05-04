@@ -1,23 +1,15 @@
-# Use node as the build environment
-FROM node:24
-
-
-# Set working directory
+# Stage 1 — build
+FROM node:24 AS builder
 WORKDIR /app
-
-# Copy package.json and yarn.lock to leverage Docker caching
-COPY package.json  ./
-
-# Install dependencies
-RUN npm install 
-
-# Copy the rest of the application files
+COPY package.json ./
+RUN npm install
 COPY . .
-
-# Build the React app
 RUN npm run build
 
-# Expose the port
+# Stage 2 — serve
+FROM node:24-slim
+WORKDIR /app
+RUN npm install -g serve
+COPY --from=builder /app/dist ./dist
 EXPOSE 8080
-
-CMD [ "npm", "run", "preview" ]
+CMD ["serve", "-s", "dist", "-l", "8080"]
