@@ -132,7 +132,7 @@ const About = () => {
             >
               <img
                 src="/about-portrait.jpg"
-                alt="About Alexandra"
+                alt="About Thought Canva"
                 className="w-full h-auto object-cover"
               />
             </div>

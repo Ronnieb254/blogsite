@@ -1,14 +1,16 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { ArrowLeft, Save, Eye } from 'lucide-react';
-import { useBlog } from '../context/BlogContext';
+// import { useBlog } from '../context/BlogContext';
 import { useAuth } from '../context/AuthContext';
+import { useMutation } from "@apollo/client/react";
+import { CREATE_BLOG_POST_MUTATION } from '../graphql/mutations';
 
 const CreateBlogPost = () => {
   const navigate = useNavigate();
-  const { addPost } = useBlog();
+  // const { addPost } = useBlog();
   const { user, isAuthenticated } = useAuth();
-  
+  const [createBlog] = useMutation(CREATE_BLOG_POST_MUTATION);
   const [formData, setFormData] = useState({
     title: '',
     category: 'Strategy',
@@ -78,26 +80,34 @@ const CreateBlogPost = () => {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  setIsSubmitting(true);
 
-    try {
-      addPost({
-        ...formData,
-        author: user?.name || 'Anonymous',
-        authorAvatar: user?.avatar,
-      });
-      
-      // Navigate to blog page after successful creation
-      navigate('/blog');
-    } catch (error) {
-      console.error('Error creating post:', error);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+  try {
+    await createBlog({
+      variables: {
+        input: {
+          title: formData.title,
+          content: formData.content,
+          excerpt: formData.excerpt,
+          featuredImage: formData.image,
+          metaTitle: formData.title,
+          metaDescription: formData.excerpt,
+          tags: [formData.category],
+          published: true
+        }
+      }
+    });
 
+    navigate('/blog');
+
+  } catch (error) {
+    console.error("Error creating blog:", error);
+  } finally {
+    setIsSubmitting(false);
+  }
+};
   const wordCount = formData.content.trim().split(/\s+/).length;
   const charCount = formData.content.length;
 
@@ -170,7 +180,7 @@ const CreateBlogPost = () => {
               </h1>
               
               <div className="flex items-center text-gray-500 text-sm mb-6">
-                <span>{user?.name}</span>
+                <span>{user?.fullName}</span>
                 <span className="mx-2">•</span>
                 <span>{new Date().toLocaleDateString()}</span>
                 <span className="mx-2">•</span>

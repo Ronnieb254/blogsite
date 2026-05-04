@@ -55,7 +55,8 @@ const Navigation = () => {
               className="text-2xl font-semibold tracking-tight transition-transform duration-300 hover:scale-105"
               style={{ fontFamily: 'Playfair Display, serif' }}
             >
-              Alexandra.
+              Thought Canva.
+              {/* <img src="/clogo.png" alt="Thought Canva Logo" className="w-12 h-12" /> */}
             </Link>
 
             {/* Desktop Navigation */}
@@ -90,7 +91,7 @@ const Navigation = () => {
                   <div className="flex items-center gap-3 pl-4 border-l border-gray-200">
                     <img
                       src={user?.avatar || '/hero-portrait.jpg'}
-                      alt={user?.name}
+                      alt={user?.fullName}
                       className="w-8 h-8 rounded-full object-cover"
                     />
                     <button
@@ -144,10 +145,10 @@ const Navigation = () => {
             <div className="flex items-center gap-3 mb-4">
               <img
                 src={user?.avatar || '/hero-portrait.jpg'}
-                alt={user?.name}
+                alt={user?.fullName}
                 className="w-12 h-12 rounded-full object-cover"
               />
-              <span className="text-lg font-medium">{user?.name}</span>
+              <span className="text-lg font-medium">{user?.fullName}</span>
             </div>
           )}
 

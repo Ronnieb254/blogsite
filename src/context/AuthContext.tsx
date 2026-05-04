@@ -1,10 +1,34 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+// src/context/AuthContext.tsx
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { useMutation } from "@apollo/client/react";
+import { LOGIN_MUTATION, REGISTER_MUTATION } from "../graphql/mutations";
 
-interface User {
+// ---------------------- TypeScript Interfaces ----------------------
+export interface User {
   id: string;
-  name: string;
+  fullName: string;
   email: string;
-  avatar?: string;
+  avatar?: string | null;
+  isAdmin: boolean;
+  isActive: boolean;
+}
+
+interface SignInResponse {
+  signIn: {
+    token: string;
+    success: boolean;
+    message: string;
+    user: User;
+  };
+}
+
+interface SignUpResponse {
+  signUp: {
+    token: string;
+    success: boolean;
+    message: string;
+    user: User;
+  };
 }
 
 interface AuthContextType {
@@ -15,105 +39,93 @@ interface AuthContextType {
   register: (name: string, email: string, password: string) => Promise<boolean>;
 }
 
+// ---------------------- Context ----------------------
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Demo users for testing
-const DEMO_USERS = [
-  {
-    id: '1',
-    name: 'Alexandra',
-    email: 'alexandra@example.com',
-    password: 'password123',
-    avatar: '/hero-portrait.jpg',
-  },
-  {
-    id: '2',
-    name: 'Guest User',
-    email: 'guest@example.com',
-    password: 'guest123',
-    avatar: '/about-portrait.jpg',
-  },
-];
-
+// ---------------------- Provider ----------------------
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
 
-  // Check for saved session on mount
+  // Apollo mutations must be inside the component
+  const [signIn] = useMutation<SignInResponse>(LOGIN_MUTATION);
+  const [signUp] = useMutation<SignUpResponse>(REGISTER_MUTATION);
+
+  // Load saved user on mount
   useEffect(() => {
-    const savedUser = localStorage.getItem('blog_user');
+    const savedUser = localStorage.getItem("blog_user");
     if (savedUser) {
       try {
         setUser(JSON.parse(savedUser));
       } catch {
-        localStorage.removeItem('blog_user');
+        localStorage.removeItem("blog_user");
       }
     }
   }, []);
 
+  // ---------------------- Login ----------------------
   const login = async (email: string, password: string): Promise<boolean> => {
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 500));
-    
-    const foundUser = DEMO_USERS.find(
-      u => u.email === email && u.password === password
-    );
-    
-    if (foundUser) {
-      const { password: _, ...userWithoutPassword } = foundUser;
-      setUser(userWithoutPassword);
-      localStorage.setItem('blog_user', JSON.stringify(userWithoutPassword));
+    try {
+      const { data } = await signIn({
+        variables: { input: { email, password } },
+      });
+
+      if (!data?.signIn.success) return false;
+
+      const { token, user } = data.signIn;
+
+      localStorage.setItem("token", token);
+      localStorage.setItem("blog_user", JSON.stringify(user));
+      setUser(user);
+
       return true;
-    }
-    return false;
-  };
-
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem('blog_user');
-  };
-
-  const register = async (name: string, email: string, _password: string): Promise<boolean> => {
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 500));
-    
-    // Check if user already exists
-    const existingUser = DEMO_USERS.find(u => u.email === email);
-    if (existingUser) {
+    } catch (error) {
+      console.error("Login error:", error);
       return false;
     }
-    
-    // In a real app, this would create a new user in the database
-    const newUser = {
-      id: Date.now().toString(),
-      name,
-      email,
-      avatar: '/hero-portrait.jpg',
-    };
-    
-    setUser(newUser);
-    localStorage.setItem('blog_user', JSON.stringify(newUser));
-    return true;
+  };
+
+  // ---------------------- Register ----------------------
+  const register = async (name: string, email: string, password: string): Promise<boolean> => {
+    try {
+      const { data } = await signUp({
+        variables: { input: { fullName: name, email, password } },
+      });
+
+      if (!data?.signUp.success) return false;
+
+      const { token, user } = data.signUp;
+
+      localStorage.setItem("token", token);
+      localStorage.setItem("blog_user", JSON.stringify(user));
+      setUser(user);
+
+      return true;
+    } catch (error) {
+      console.error("Signup error:", error);
+      return false;
+    }
+  };
+
+  // ---------------------- Logout ----------------------
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem("blog_user");
+    localStorage.removeItem("token");
   };
 
   return (
-    <AuthContext.Provider
-      value={{
-        user,
-        isAuthenticated: !!user,
-        login,
-        logout,
-        register,
-      }}
-    >
+    <AuthContext.Provider value={{ user, isAuthenticated: !!user, login, logout, register }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
+// ---------------------- Custom Hook ----------------------
+// @vite-ignore
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 };

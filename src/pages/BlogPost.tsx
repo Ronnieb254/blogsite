@@ -36,7 +36,7 @@ const BlogPost = () => {
   if (!post) return null;
 
   const previewContent = getPreviewContent(post.content);
-  const isAuthor = user?.name === post.author;
+  const isAuthor = user?.fullName === post.author;
 
   // Format content with paragraphs
   const formatContent = (content: string) => {

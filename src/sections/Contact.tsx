@@ -29,8 +29,8 @@ const Contact = () => {
     {
       icon: <Mail className="w-5 h-5" />,
       label: 'Email',
-      value: 'hello@alexandra.com',
-      href: 'mailto:hello@alexandra.com',
+      value: 'hello@thoughtcanva.com',
+      href: 'mailto:hello@thoughtcanva.com',
     },
     {
       icon: <Phone className="w-5 h-5" />,
@@ -121,7 +121,7 @@ const Contact = () => {
             }}
           >
             <a
-              href="mailto:hello@alexandra.com"
+              href="mailto:hello@thoughtcanva.com"
               className="inline-flex items-center justify-center px-10 py-5 bg-white text-black text-sm font-semibold tracking-wide uppercase transition-all duration-300 hover:bg-red-600 hover:text-white hover:scale-105 group"
               style={{
                 boxShadow: isVisible

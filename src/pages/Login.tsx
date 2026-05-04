@@ -74,7 +74,8 @@ const Login = () => {
         {/* Header */}
         <div className="text-center">
           <Link to="/" className="text-3xl font-semibold tracking-tight" style={{ fontFamily: 'Playfair Display, serif' }}>
-            Alexandra.
+            Thought Canva.
+            {/* <img src="/canvalogo.png" alt="Thought Canva Logo" className="mx-auto w-12 h-12" /> */}
           </Link>
           <h2 className="mt-6 text-3xl font-semibold text-gray-900">
             {activeTab === 'login' ? 'Welcome back' : 'Create an account'}
@@ -212,11 +213,11 @@ const Login = () => {
             </button>
 
             {/* Demo Credentials */}
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-sm">
+            {/* <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-sm">
               <p className="font-medium text-blue-900 mb-1">Demo Credentials:</p>
               <p className="text-blue-700">Email: alexandra@example.com</p>
               <p className="text-blue-700">Password: password123</p>
-            </div>
+            </div> */}
           </form>
         )}
 

@@ -143,7 +143,7 @@ const About = () => {
                 transitionTimingFunction: 'var(--ease-expo-out)',
                 transitionDelay: '200ms',
               }}>
-              <img src="/about-portrait.jpg" alt="About Alexandra" className="w-full h-auto object-cover" />
+              <img src="/about-portrait.jpg" alt="About Thought Canva" className="w-full h-auto object-cover" />
               <div className="absolute -bottom-8 -right-8 w-48 h-48 bg-gray-100 rounded-full -z-10" />
             </div>
 

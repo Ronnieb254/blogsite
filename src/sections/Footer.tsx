@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Linkedin, Twitter, Instagram, ArrowUpRight } from 'lucide-react';
 
+// import TermsConditions from './pages/TermsConditions';
+// import PrivacyPolicy from './pages/PrivacyPolicy';
 const Footer = () => {
   const footerRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -68,7 +70,9 @@ const Footer = () => {
               className="text-3xl font-semibold tracking-tight mb-6 block"
               style={{ fontFamily: 'Playfair Display, serif' }}
             >
-              Alexandra.
+              Thought Canva.
+
+              {/* <img src="/clogo.png" alt="Thought Canva Logo" className="w-20 h-20" /> */}
             </Link>
             <p className="text-gray-400 leading-relaxed text-sm">
               Strategic consultancy and creative direction for brands that dare
@@ -188,7 +192,7 @@ const Footer = () => {
 
             {/* Email CTA */}
             <a
-              href="mailto:hello@alexandra.com"
+              href="mailto:hello@thoughtcanva.com"
               className={`inline-flex items-center mt-6 text-gray-400 hover:text-white transition-all duration-300 group ${
                 isVisible ? 'opacity-100' : 'opacity-0'
               }`}
@@ -197,7 +201,7 @@ const Footer = () => {
                 transitionTimingFunction: 'var(--ease-expo-out)',
               }}
             >
-              hello@alexandra.com
+              hello@thoughtcanva.com
               <ArrowUpRight className="ml-1 w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
           </div>
@@ -225,17 +229,17 @@ const Footer = () => {
           }}
         >
           <p className="text-gray-500 text-sm">
-            © {new Date().getFullYear()} Alexandra. All rights reserved.
+            © {new Date().getFullYear()} Thought Canva. All rights reserved.
           </p>
           <div className="flex items-center space-x-6">
             <a
-              href="#"
+              href="/privacypolicy"
               className="text-gray-500 hover:text-white text-sm transition-colors duration-300"
             >
               Privacy Policy
             </a>
             <a
-              href="#"
+              href="/termsconditions"
               className="text-gray-500 hover:text-white text-sm transition-colors duration-300"
             >
               Terms of Service

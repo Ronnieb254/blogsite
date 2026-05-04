@@ -94,7 +94,7 @@ const Home = () => {
     {
       id: 2,
       category: 'Technology',
-      title: '5 Digital Trends Shaping 2025',
+      title: '5 Digital Trends Shaping 2026',
       date: 'December 10, 2024',
       image: '/blog-2.jpg',
     },
@@ -193,7 +193,7 @@ const Home = () => {
                 style={{ transitionDelay: '400ms', transitionTimingFunction: 'var(--ease-expo-out)' }}>
                 <div className="relative">
                   <div className="relative overflow-hidden rounded-2xl shadow-2xl">
-                    <img src="/hero-portrait.jpg" alt="Alexandra" className="w-full h-auto object-cover" />
+                    <img src="/hero-portrait.jpg" alt="Thought Canva" className="w-full h-auto object-cover" />
                     <div className={`absolute inset-0 bg-gradient-to-t from-black/30 to-transparent transition-opacity duration-1000 ${
                       isLoaded ? 'opacity-100' : 'opacity-50'
                     }`}

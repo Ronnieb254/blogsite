@@ -215,7 +215,7 @@ const Hero = () => {
                 <div className="relative overflow-hidden rounded-2xl shadow-2xl">
                   <img
                     src="/hero-portrait.jpg"
-                    alt="Alexandra"
+                    alt="Thought Canva"
                     className="w-full h-auto object-cover"
                   />
                   {/* Gradient Overlay */}

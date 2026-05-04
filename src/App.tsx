@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { BlogProvider } from './context/BlogContext';
 import Navigation from './sections/Navigation';
@@ -11,26 +11,43 @@ import BlogPost from './pages/BlogPost';
 import CreateBlogPost from './pages/CreateBlogPost';
 import Contact from './pages/Contact';
 import Login from './pages/Login';
+import TermsConditions from './pages/TermsConditions';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+
+function Layout() {
+  const location = useLocation();
+
+  const hideNavRoutes = ['/login', '/blog/create'];
+  const hideNav = hideNavRoutes.includes(location.pathname);
+
+  return (
+    <div className="min-h-screen bg-white">
+      {!hideNav && <Navigation />}
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:id" element={<BlogPost />} />
+        <Route path="/blog/create" element={<CreateBlogPost />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/termsconditions" element={<TermsConditions />} />
+        <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+      </Routes>
+
+      {<Footer />}
+    </div>
+  );
+}
 
 function App() {
   return (
     <AuthProvider>
       <BlogProvider>
         <Router>
-          <div className="min-h-screen bg-white">
-            <Navigation />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/services" element={<Services />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/blog/:id" element={<BlogPost />} />
-              <Route path="/blog/create" element={<CreateBlogPost />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/login" element={<Login />} />
-            </Routes>
-            <Footer />
-          </div>
+          <Layout />
         </Router>
       </BlogProvider>
     </AuthProvider>

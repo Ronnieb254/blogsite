@@ -49,7 +49,7 @@ const Blog = () => {
     {
       id: 2,
       category: 'Technology',
-      title: '5 Digital Trends Shaping 2025',
+      title: '5 Digital Trends Shaping 2026',
       excerpt:
         'Explore the emerging technologies and digital strategies that will define the next year.',
       date: 'December 10, 2024',

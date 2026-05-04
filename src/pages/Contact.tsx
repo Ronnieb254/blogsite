@@ -49,8 +49,8 @@ const Contact = () => {
     {
       icon: <Mail className="w-5 h-5" />,
       label: 'Email',
-      value: 'hello@alexandra.com',
-      href: 'mailto:hello@alexandra.com',
+      value: 'hello@thoughtcanva.com',
+      href: 'mailto:hello@thoughtcanva.com',
     },
     {
       icon: <Phone className="w-5 h-5" />,
@@ -266,7 +266,7 @@ const Contact = () => {
                 <div className="mt-10 p-6 bg-black text-white">
                   <h4 className="font-semibold mb-2">Availability</h4>
                   <p className="text-white/70 text-sm leading-relaxed">
-                    Currently accepting new projects for Q1 2025. Let's discuss how I can help bring your vision to life.
+                    Currently accepting new projects for Q1 2026. Let's discuss how I can help bring your vision to life.
                   </p>
                 </div>
               </div>
@@ -296,7 +296,7 @@ const Contact = () => {
               Let's create something extraordinary together. Your journey to exceptional brand presence starts with a conversation.
             </p>
             <a
-              href="mailto:hello@alexandra.com"
+              href="mailto:hello@thoughtcanva.com"
               className="inline-flex items-center justify-center px-10 py-5 bg-white text-black text-sm font-semibold tracking-wide uppercase transition-all duration-300 hover:bg-red-600 hover:text-white hover:scale-105 group"
             >
               Schedule a Call

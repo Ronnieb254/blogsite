@@ -76,10 +76,10 @@ const Blog = () => {
                   <div className="flex items-center gap-3 mr-4">
                     <img
                       src={user?.avatar || '/hero-portrait.jpg'}
-                      alt={user?.name}
+                      alt={user?.fullName}
                       className="w-10 h-10 rounded-full object-cover"
                     />
-                    <span className="text-sm font-medium hidden sm:block">{user?.name}</span>
+                    <span className="text-sm font-medium hidden sm:block">{user?.fullName}</span>
                   </div>
                   <Link
                     to="/blog/create"
