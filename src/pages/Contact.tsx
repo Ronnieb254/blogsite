@@ -55,13 +55,13 @@ const Contact = () => {
     {
       icon: <Phone className="w-5 h-5" />,
       label: 'Phone',
-      value: '+1 (555) 123-4567',
-      href: 'tel:+15551234567',
+      value: '+254 (769) 940599',
+      href: 'tel:+254769940599',
     },
     {
       icon: <MapPin className="w-5 h-5" />,
       label: 'Location',
-      value: 'New York, NY',
+      value: 'Nairobi, Kenya',
       href: '#',
     },
   ];
