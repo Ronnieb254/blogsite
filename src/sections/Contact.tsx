@@ -41,7 +41,7 @@ const Contact = () => {
     {
       icon: <MapPin className="w-5 h-5" />,
       label: 'Location',
-      value: 'Nairobi, Kenya',
+      value: ' P.O. Box 12345-00100, Nairobi, Kenya',
       href: '#',
     },
   ];

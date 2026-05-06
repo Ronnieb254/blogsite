@@ -58,12 +58,7 @@ const Contact = () => {
       value: '+254 (769) 940599',
       href: 'tel:+254769940599',
     },
-    {
-      icon: <MapPin className="w-5 h-5" />,
-      label: 'Location',
-      value: 'Nairobi, Kenya',
-      href: '#',
-    },
+   
   ];
 
   const socialLinks = [
