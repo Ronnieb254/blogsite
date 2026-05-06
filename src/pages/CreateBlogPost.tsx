@@ -23,7 +23,29 @@ const CreateBlogPost = () => {
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
+const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const file = e.target.files?.[0];
+  if (!file) return;
 
+  try {
+    const formDataData = new FormData();
+    formDataData.append("file", file);
+
+    const res = await fetch("/api/upload", {
+      method: "POST",
+      body: formDataData,
+    });
+
+    const data = await res.json();
+
+    setFormData(prev => ({
+      ...prev,
+      image: data.url, // URL from backend
+    }));
+  } catch (error) {
+    console.error("Upload failed:", error);
+  }
+};
   // Redirect if not authenticated
   if (!isAuthenticated) {
     return (
@@ -332,33 +354,88 @@ const CreateBlogPost = () => {
                 />
               </div>
 
-              {/* Image Selection */}
-              <div className="bg-white rounded-lg shadow-sm p-6">
-                <label className="block text-sm font-medium text-gray-700 mb-4">
-                  Featured Image
-                </label>
-                <div className="grid grid-cols-3 sm:grid-cols-6 gap-4">
-                  {['/blog-1.jpg', '/blog-2.jpg', '/blog-3.jpg', '/hero-background.jpg', '/cta-background.jpg', '/about-portrait.jpg'].map((img) => (
-                    <button
-                      key={img}
-                      type="button"
-                      onClick={() => setFormData(prev => ({ ...prev, image: img }))}
-                      className={`relative aspect-square rounded-lg overflow-hidden border-2 transition-all duration-300 ${
-                        formData.image === img ? 'border-red-600 ring-2 ring-red-100' : 'border-transparent hover:border-gray-300'
-                      }`}
-                    >
-                      <img src={img} alt="" className="w-full h-full object-cover" />
-                      {formData.image === img && (
-                        <div className="absolute inset-0 bg-red-600/20 flex items-center justify-center">
-                          <svg className="w-6 h-6 text-red-600" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                          </svg>
-                        </div>
-                      )}
-                    </button>
-                  ))}
-                </div>
-              </div>
+           {/* Image Selection / Upload */}
+<div className="bg-white rounded-lg shadow-sm p-6">
+  <label className="block text-sm font-medium text-gray-700 mb-4">
+    Featured Image
+  </label>
+
+  {/* Upload Button */}
+  <div className="mb-6">
+    <input
+      type="file"
+      accept="image/*"
+      onChange={handleImageUpload}
+      className="block w-full text-sm text-gray-500
+        file:mr-4 file:py-2 file:px-4
+        file:rounded-lg file:border-0
+        file:text-sm file:font-medium
+        file:bg-black file:text-white
+        hover:file:bg-gray-800"
+    />
+    <p className="text-xs text-gray-500 mt-2">
+      Upload your own image or choose from below
+    </p>
+  </div>
+
+  {/* Divider */}
+  <div className="border-t border-gray-200 my-4"></div>
+
+  {/* Preset Images */}
+  <div className="grid grid-cols-3 sm:grid-cols-6 gap-4">
+    {[
+      '/blog-1.jpg',
+      '/blog-2.jpg',
+      '/blog-3.jpg',
+      '/hero-background.jpg',
+      '/cta-background.jpg',
+      '/about-portrait.jpg'
+    ].map((img) => (
+      <button
+        key={img}
+        type="button"
+        onClick={() =>
+          setFormData(prev => ({ ...prev, image: img }))
+        }
+        className={`relative aspect-square rounded-lg overflow-hidden border-2 transition-all duration-300 ${
+          formData.image === img
+            ? 'border-red-600 ring-2 ring-red-100'
+            : 'border-transparent hover:border-gray-300'
+        }`}
+      >
+        <img src={img} alt="" className="w-full h-full object-cover" />
+
+        {formData.image === img && (
+          <div className="absolute inset-0 bg-red-600/20 flex items-center justify-center">
+            <svg
+              className="w-6 h-6 text-red-600"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fillRule="evenodd"
+                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </div>
+        )}
+      </button>
+    ))}
+  </div>
+
+  {/* Preview Selected Image */}
+  {formData.image && (
+    <div className="mt-6">
+      <p className="text-sm text-gray-600 mb-2">Selected Image Preview:</p>
+      <img
+        src={formData.image}
+        alt="Preview"
+        className="w-full max-h-64 object-cover rounded-lg"
+      />
+    </div>
+  )}
+</div>
 
               {/* Tips */}
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">

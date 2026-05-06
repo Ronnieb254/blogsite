@@ -70,9 +70,9 @@ const Footer = () => {
               className="text-3xl font-semibold tracking-tight mb-6 block"
               style={{ fontFamily: 'Playfair Display, serif' }}
             >
-              Thought Canva.
+              {/* Thought Canva. */}
 
-              {/* <img src="/clogo.png" alt="Thought Canva Logo" className="w-20 h-20" /> */}
+              <img src="/thoughtcanva-logo.svg" alt="Thought Canva Logo" className="mx-auto" />
             </Link>
             <p className="text-gray-400 leading-relaxed text-sm">
               Strategic consultancy and creative direction for brands that dare

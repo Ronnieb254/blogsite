@@ -50,14 +50,16 @@ const Navigation = () => {
         <div className="w-full px-6 sm:px-8 lg:px-16 xl:px-24">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <Link
-              to="/"
-              className="text-2xl font-semibold tracking-tight transition-transform duration-300 hover:scale-105"
-              style={{ fontFamily: 'Playfair Display, serif' }}
-            >
-              Thought Canva.
-              {/* <img src="/clogo.png" alt="Thought Canva Logo" className="w-12 h-12" /> */}
-            </Link>
+           <Link
+  to="/"
+  className="flex items-center h-20 transition-transform duration-300 hover:scale-105"
+>
+  <img
+    src="/thoughtcanva-logo.svg"
+    alt="Thought Canva Logo"
+    className="h-20 w-60 object-contain"
+  />
+</Link>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-10">

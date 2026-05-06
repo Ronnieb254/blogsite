@@ -74,8 +74,10 @@ const Login = () => {
         {/* Header */}
         <div className="text-center">
           <Link to="/" className="text-3xl font-semibold tracking-tight" style={{ fontFamily: 'Playfair Display, serif' }}>
-            Thought Canva.
-            {/* <img src="/canvalogo.png" alt="Thought Canva Logo" className="mx-auto w-12 h-12" /> */}
+            {/* Thought Canva. */}
+            {/* svg */} 
+
+            <img src="/thoughtcanva-logo.svg" alt="Thought Canva Logo" className="mx-auto" />
           </Link>
           <h2 className="mt-6 text-3xl font-semibold text-gray-900">
             {activeTab === 'login' ? 'Welcome back' : 'Create an account'}
