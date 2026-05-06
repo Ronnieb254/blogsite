@@ -242,7 +242,7 @@ const Contact = () => {
                 </div>
 
                 <div className="border-t border-gray-200 pt-8">
-                  <h4 className="text-sm font-medium text-gray-500 mb-4">Follow Me</h4>
+                  <h4 className="text-sm font-medium text-gray-500 mb-4">Follow Us</h4>
                   <div className="flex space-x-3">
                     {socialLinks.map((social, index) => (
                       <a
