@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ArrowRight, Mail, Phone, Send, Linkedin, Twitter, Instagram } from 'lucide-react';
+import { ArrowRight, Mail, Phone, MapPin, Send, Linkedin, Twitter, Instagram } from 'lucide-react';
 
 const Contact = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -58,7 +58,12 @@ const Contact = () => {
       value: '+254 (769) 940599',
       href: 'tel:+254769940599',
     },
-   
+    {
+      icon: <MapPin className="w-5 h-5" />,
+      label: 'Location',
+      value: 'P.O. Box 12345-00100, Nairobi, Kenya',
+      href: '#',
+    },
   ];
 
   const socialLinks = [
