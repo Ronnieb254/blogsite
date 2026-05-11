@@ -71,3 +71,21 @@ mutation CreateBlog($input: BlogInput!) {
   }
 }
 `;
+//deleteBlog(id: ID!): Boolean
+export const DELETE_BLOG_POST_MUTATION = gql`
+mutation DeleteBlog($deleteBlogId: ID!) {
+  deleteBlog(id: $deleteBlogId) {
+    id
+    success
+    message
+  }
+}
+`;
+
+export const UPDATE_BLOG_POST_MUTATION = gql`
+mutation UpdateBlog($updateBlogId: ID!, $input: BlogInput!) {
+  updateBlog(id: $updateBlogId, input: $input) {
+    id
+  }
+}
+`;

@@ -3,16 +3,34 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Calendar, Clock, Lock, Edit, Trash2 } from 'lucide-react';
 import { useBlog } from '../context/BlogContext';
 import { useAuth } from '../context/AuthContext';
+// import { useMutation } from '@apollo/client';
+import { useMutation } from "@apollo/client/react";
+import Swal from 'sweetalert2';
+import { DELETE_BLOG_POST_MUTATION } from '../graphql/mutations';
+
+
+
+interface DeleteBlogResponse {
+  deleteBlog: {
+    id: string;
+    success: boolean;
+    message: string;
+  };
+}
+
 
 const BlogPost = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { getPost, deletePost, getPreviewContent } = useBlog();
+  const { getPost, getPreviewContent } = useBlog();
   const { isAuthenticated, user } = useAuth();
   const [isVisible, setIsVisible] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
-
+  const [deleteBlog, { loading: deleting }] =
+  useMutation<DeleteBlogResponse>(
+    DELETE_BLOG_POST_MUTATION
+  );
   const post = id ? getPost(id) : undefined;
 
   useEffect(() => {
@@ -26,12 +44,72 @@ const BlogPost = () => {
     }
   }, [post, navigate]);
 
-  const handleDelete = () => {
-    if (post) {
-      deletePost(post.id);
+  // const handleDelete = () => {
+  //   if (post) {
+  //     deletePost(post.id);
+  //     navigate('/blog');
+  //   }
+  // };
+const handleDelete = async () => {
+  if (!post) return;
+
+  const result = await Swal.fire({
+    title: 'Delete Post?',
+    text: 'This action cannot be undone.',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#dc2626',
+    cancelButtonColor: '#6b7280',
+    confirmButtonText: 'Yes, delete it',
+    cancelButtonText: 'Cancel',
+    reverseButtons: true,
+  });
+
+  if (!result.isConfirmed) return;
+      // console.log('Deleting blog with ID:', post.id);
+
+  try {
+    const { data } = await deleteBlog({
+      variables: {
+        deleteBlogId: post.id,
+      },
+    });
+      // console.log('Deleting blog with ID:', data);
+
+    if (data?.deleteBlog?.message === 'Blog deleted successfully') {
+      // if (data?.deleteBlog?.id)
+
+      await Swal.fire({
+        title: 'Deleted!',
+        text: 'Your post has been deleted successfully.',
+        icon: 'success',
+        timer: 2000,
+        showConfirmButton: false,
+      });
+
       navigate('/blog');
+      window.location.reload();
+
+    } else {
+
+      Swal.fire({
+        title: 'Failed',
+        text: 'Could not delete post.',
+        icon: 'error',
+      });
+
     }
-  };
+
+  } catch (error) {
+    console.error('Error deleting blog:', error);
+
+    Swal.fire({
+      title: 'Error',
+      text: 'Something went wrong while deleting the post.',
+      icon: 'error',
+    });
+  }
+};
 
   if (!post) return null;
 
@@ -230,19 +308,27 @@ const BlogPost = () => {
                 </h4>
                 <div className="flex gap-4">
                   <Link
-                    to={`/blog/edit/${post.id}`}
+                    to={`/blog/update/${post.id}`}
                     className="inline-flex items-center px-4 py-2 bg-black text-white text-sm font-medium hover:bg-gray-800 transition-colors duration-300"
                   >
                     <Edit className="w-4 h-4 mr-2" />
                     Edit Post
                   </Link>
-                  <button
+                  {/* <button
                     onClick={() => setShowDeleteConfirm(true)}
                     className="inline-flex items-center px-4 py-2 border border-red-600 text-red-600 text-sm font-medium hover:bg-red-600 hover:text-white transition-colors duration-300"
                   >
                     <Trash2 className="w-4 h-4 mr-2" />
                     Delete Post
-                  </button>
+                  </button> */}
+                <button
+    onClick={handleDelete}
+    disabled={deleting}
+    className="inline-flex items-center px-4 py-2 border border-red-600 text-red-600 text-sm font-medium hover:bg-red-600 hover:text-white disabled:opacity-50 transition-colors duration-300"
+  >
+    <Trash2 className="w-4 h-4 mr-2" />
+    {deleting ? 'Deleting...' : 'Delete Post'}
+  </button>
                 </div>
               </div>
             )}
