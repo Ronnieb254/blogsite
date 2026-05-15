@@ -281,7 +281,7 @@ export default function BlackDustSeriesPage() {
         </section>
 
         {/* FULL SCREEN VIEWER */}
-        {selected !== null && (
+        {/* {selected !== null && (
           <div className="viewer">
             <div className="viewer-bg"></div>
 
@@ -330,7 +330,73 @@ export default function BlackDustSeriesPage() {
               </div>
             </div>
           </div>
-        )}
+        )} */}
+        {/* FULL SCREEN VIEWER — MOBILE OPTIMIZED */}
+{selected !== null && (
+  <div className="viewer">
+    <div className="viewer-bg"></div>
+
+    <div className="viewer-content">
+
+      {/* CLOSE BUTTON */}
+      <button
+        className="close"
+        onClick={() => setSelected(null)}
+      >
+        ✕
+      </button>
+
+      {/* TOP GRADIENT */}
+      <div className="viewer-overlay-top"></div>
+
+      {/* CONTENT */}
+      <div className="viewer-scroll">
+
+        <div className="viewer-header">
+          <div className="viewer-ep">
+            EPISODE {episodes[selected].n}
+          </div>
+
+          <h2>{episodes[selected].t}</h2>
+
+          <p className="viewer-hook">
+            "{episodes[selected].hook}"
+          </p>
+        </div>
+
+        <div className="viewer-body">
+          <p>{episodes[selected].synopsis}</p>
+
+          <div className="cliff">
+            <span>CLIFFHANGER</span>
+            {episodes[selected].cliff}
+          </div>
+        </div>
+
+        {/* CONTROLS */}
+        <div className="viewer-controls">
+          {selected > 0 && (
+            <button onClick={() => setSelected(selected - 1)}>
+              ← Previous
+            </button>
+          )}
+
+          {selected < episodes.length - 1 && (
+            <button onClick={() => setSelected(selected + 1)}>
+              Next Episode →
+            </button>
+          )}
+        </div>
+
+      </div>
+      </div>
+      </div>
+)}
+    {/* </div> */}
+
+     
+
+    
       </div>
 
       <style>{`
@@ -646,6 +712,279 @@ export default function BlackDustSeriesPage() {
           .section {
             padding: 4rem 6%;
           }
+            .viewer {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        animation: viewerFade 0.4s ease;
+      }
+
+      @keyframes viewerFade {
+        from {
+          opacity: 0;
+          transform: scale(1.03);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      /* CINEMATIC BACKGROUND */
+      .viewer-bg {
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(
+            to bottom,
+            rgba(0,0,0,0.5),
+            rgba(0,0,0,0.95)
+          ),
+          url("https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=2000&auto=format&fit=crop");
+        background-size: cover;
+        background-position: center;
+        filter: blur(10px) brightness(0.35);
+        transform: scale(1.1);
+      }
+
+      /* MAIN PANEL */
+      .viewer-content {
+        position: relative;
+        width: min(95vw, 900px);
+        height: min(92vh, 800px);
+
+        background:
+          linear-gradient(
+            180deg,
+            rgba(15,15,15,0.92),
+            rgba(8,8,8,0.98)
+          );
+
+        border: 1px solid rgba(200,169,110,0.2);
+        backdrop-filter: blur(20px);
+
+        overflow: hidden;
+
+        box-shadow:
+          0 20px 80px rgba(0,0,0,0.8),
+          inset 0 0 80px rgba(200,169,110,0.04);
+
+        border-radius: 20px;
+      }
+
+      /* SCROLL AREA */
+      .viewer-scroll {
+        position: relative;
+        overflow-y: auto;
+        height: 100%;
+        padding: 5rem 3rem 2rem;
+      }
+
+      .viewer-scroll::-webkit-scrollbar {
+        width: 4px;
+      }
+
+      .viewer-scroll::-webkit-scrollbar-thumb {
+        background: rgba(200,169,110,0.4);
+      }
+
+      /* TOP OVERLAY */
+      .viewer-overlay-top {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 120px;
+        background: linear-gradient(
+          to bottom,
+          rgba(0,0,0,0.65),
+          transparent
+        );
+        z-index: 1;
+      }
+
+      /* CLOSE */
+      .close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+
+        width: 42px;
+        height: 42px;
+
+        border-radius: 50%;
+        border: 1px solid rgba(255,255,255,0.1);
+
+        background: rgba(255,255,255,0.06);
+
+        color: white;
+        cursor: pointer;
+
+        z-index: 5;
+
+        transition: 0.3s ease;
+      }
+
+      .close:hover {
+        background: rgba(200,169,110,0.2);
+        border-color: rgba(200,169,110,0.4);
+        transform: rotate(90deg);
+      }
+
+      /* HEADER */
+      .viewer-header {
+        position: relative;
+        z-index: 2;
+      }
+
+      .viewer-ep {
+        color: rgba(200,169,110,0.7);
+        font-size: 0.7rem;
+        letter-spacing: 0.35em;
+        margin-bottom: 1rem;
+      }
+
+      .viewer-header h2 {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: clamp(3rem, 8vw, 6rem);
+        line-height: 0.9;
+        letter-spacing: 2px;
+        color: #F0EBE0;
+
+        margin-bottom: 1rem;
+      }
+
+      .viewer-hook {
+        font-size: clamp(0.9rem, 2vw, 1.1rem);
+        color: rgba(255,255,255,0.6);
+        font-style: italic;
+        line-height: 1.8;
+        max-width: 700px;
+      }
+
+      /* BODY */
+      .viewer-body {
+        margin-top: 3rem;
+      }
+
+      .viewer-body p {
+        color: rgba(255,255,255,0.72);
+        line-height: 2;
+        font-size: clamp(0.95rem, 2vw, 1rem);
+      }
+
+      /* CLIFFHANGER */
+      .cliff {
+        margin-top: 2rem;
+
+        padding: 1.5rem;
+
+        border-left: 3px solid rgba(255,80,80,0.6);
+
+        background: rgba(120,20,20,0.12);
+
+        color: rgba(255,220,220,0.85);
+
+        line-height: 1.8;
+      }
+
+      .cliff span {
+        display: block;
+        margin-bottom: 0.5rem;
+
+        font-size: 0.65rem;
+        letter-spacing: 0.3em;
+        color: rgba(255,120,120,0.7);
+      }
+
+      /* CONTROLS */
+      .viewer-controls {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+
+        margin-top: 3rem;
+        flex-wrap: wrap;
+      }
+
+      .viewer-controls button {
+        flex: 1;
+        min-width: 180px;
+
+        background: rgba(200,169,110,0.12);
+
+        border: 1px solid rgba(200,169,110,0.25);
+
+        color: #F0EBE0;
+
+        padding: 1rem 1.2rem;
+
+        cursor: pointer;
+
+        transition: 0.3s ease;
+
+        letter-spacing: 0.08em;
+
+        border-radius: 12px;
+      }
+
+      .viewer-controls button:hover {
+        background: rgba(200,169,110,0.22);
+        transform: translateY(-2px);
+      }
+
+      /* 📱 MOBILE OPTIMIZATION */
+      @media (max-width: 768px) {
+
+        .viewer {
+          align-items: flex-end;
+        }
+
+        .viewer-content {
+          width: 100%;
+          height: 100%;
+          border-radius: 0;
+          border: none;
+        }
+
+        .viewer-scroll {
+          padding:
+            5rem
+            1.3rem
+            2rem;
+        }
+
+        .viewer-header h2 {
+          font-size: 3.2rem;
+        }
+
+        .viewer-hook {
+          font-size: 0.9rem;
+          line-height: 1.7;
+        }
+
+        .viewer-body p {
+          font-size: 0.95rem;
+          line-height: 1.9;
+        }
+
+        .viewer-controls {
+          flex-direction: column;
+        }
+
+        .viewer-controls button {
+          width: 100%;
+        }
+
+        .close {
+          top: 1rem;
+          right: 1rem;
+        }
+      }
         }
       `}</style>
     </>
