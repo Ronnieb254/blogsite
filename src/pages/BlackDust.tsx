@@ -1,5 +1,42 @@
 import { useState } from "react";
 
+const characters = [
+  {
+    role: "Protagonist",
+    name: "Zara Otieno",
+    bio: "A feared debt collector raised in Nairobi’s underground empire. Loyal, sharp, and emotionally guarded — until the city begins turning against her."
+  },
+  {
+    role: "Undercover Detective",
+    name: "Kofi Mensah",
+    bio: "A Ghanaian DCI operative sent deep into Nairobi’s criminal economy. Calm under pressure, but dangerously close to losing objectivity."
+  },
+  {
+    role: "Crime Matriarch",
+    name: "Mama Sula",
+    bio: "The woman who built Nairobi’s underground trade routes. Elegant, terrifying, and impossible to predict."
+  },
+  {
+    role: "Cartel Enforcer",
+    name: "Damu Kairo",
+    bio: "The brutal strategist from Mombasa. Intelligent, charismatic, and always three moves ahead."
+  },
+  {
+    role: "Financial Ghost",
+    name: "Shida Waweru",
+    bio: "The syndicate accountant who secretly controls the money flow beneath the empire."
+  }
+];
+
+const settings = [
+  "Mathare Underground Markets",
+  "Westlands Luxury Crime Networks",
+  "Industrial Embakasi Safehouses",
+  "Mombasa Cartel Ports",
+  "Rain-soaked Nairobi Rooftops",
+  "Underground Casinos & Smuggling Routes"
+];
+
 const episodes = [
   {
     n: "01",
@@ -10,104 +47,115 @@ const episodes = [
     cliff:
       "A parcel arrives at Mama Sula's compound. Inside: the scout's ID card — and a message. 'We're already here.'"
   },
+
   {
     n: "02",
     t: "Mathare Rules",
     hook: "Where you grow up is either your shield or your grave.",
     synopsis:
-      "Zara Otieno is tasked with locating the cartel’s entry point into Nairobi. Meanwhile, Kofi Mensah appears undercover as a Ghanaian import broker. Zara immediately senses he is an outsider — but not yet a cop.",
+      "Mama Sula tasks Zara with finding the cartel's entry point into the city. Meanwhile, a new face appears at the underground market: Kofi Mensah, posing as a Ghanaian import broker. Zara clocks him immediately as an outsider — but not as a cop.",
     cliff:
       "Zara invites Kofi to a back-room meeting. If he's cartel, she'll know by morning. If he's law, she'll know by dawn."
   },
+
   {
     n: "03",
     t: "The Broker",
-    hook: "Everyone in Nairobi is selling something.",
+    hook: "Everyone in Nairobi is selling something. The smart ones sell nothing.",
     synopsis:
-      "Kofi walks the line between his cover and his conscience as Zara tests him with a small run — moving counterfeit duty stamps through Westlands. He passes the test, but trust is not granted. Their first real conversation happens in a Parklands diner over bad coffee at 2 a.m.",
+      "Kofi walks the line between his cover and his conscience as Zara tests him with a small run — moving counterfeit duty stamps through Westlands. He passes. She still doesn't trust him. Their first real conversation happens at 2am over bad coffee in a Parklands diner. It crackles.",
     cliff:
-      "DCI command orders acceleration of the operation. Kofi requests more time — and is denied."
+      "DCI command calls Kofi in. They want to accelerate the operation. He asks for more time. They say no."
   },
+
   {
     n: "04",
     t: "Mama's Table",
     hook: "You don't get invited to her table. You get summoned.",
     synopsis:
-      "Zara brings Kofi to meet Mama Sula in a tense dinner where every word is a test. Mama Sula unexpectedly approves of him, unsettling Zara. Meanwhile, Damu Kairo arrives in Nairobi and disrupts the balance of power in a single day.",
+      "Zara brings Kofi to meet Mama Sula — a tense, theatrical dinner where every word is a test. Mama Sula approves of Kofi, which terrifies Zara for reasons she can't articulate. Meanwhile, Damu Kairo arrives in Nairobi and immediately disrupts the market's balance in one afternoon.",
     cliff:
-      "Damu leaves a note on Zara’s windshield: 'I know who the broker really is. Lunch?'"
+      "Damu leaves a note on Zara's windshield: 'I know who the broker really is. Lunch?'"
   },
+
   {
     n: "05",
     t: "Kairo",
     hook: "The scariest men are the ones who don't need to prove it.",
     synopsis:
-      "An insight into Damu Kairo’s past, discipline, and purpose. He meets Zara privately and offers a partnership. She refuses. Meanwhile, Shida discovers a hidden financial ledger tied to government officials.",
+      "A tense, character-driven episode following Damu — his backstory, his code, and why the Mombasa cartel sent their best. He and Zara meet alone. He doesn't threaten her. He offers her a partnership. She refuses. He nods, unsurprised.",
     cliff:
-      "Shida calls Zara: there is a second ledger — and it implicates someone in power."
+      "Shida calls Zara: she's found a second set of books. Mama Sula has been selling territory quietly for six months. To someone in the government."
   },
+
   {
     n: "06",
     t: "The Second Ledger",
-    hook: "The truth is always in the numbers.",
+    hook: "The truth is always in the numbers. That's why they hide them.",
     synopsis:
-      "Zara and Shida uncover that Mama Sula has been quietly selling Westlands territory to a Treasury official. It is not an invasion — it is a planned transfer of power. Mama Sula is preparing to retire.",
+      "Zara and Shida dig into the ledger and discover Mama Sula has been quietly offloading Westlands operations to a shadow shell company. The buyer: a senior Treasury official. The cartel move isn't a hostile takeover — it was invited. Mama Sula is planning to retire, and she never told anyone.",
     cliff:
-      "Zara confronts Mama Sula. Mama Sula slaps her and says: 'You think I built this for you?'"
+      "Zara confronts Mama Sula. Mama slaps her — the first time in twenty years. 'You think I built this for you?'"
   },
+
   {
     n: "07",
     t: "Loyalty Tax",
     hook: "Betrayal isn't a moment. It's a direction you've been walking for years.",
     synopsis:
-      "Zara confides in Kofi, revealing more than she should. Kofi disables his wire, choosing silence over protocol. His handler detects the breach and escalates the case.",
+      "Reeling, Zara goes to Kofi — not as a mark, but as a person. She tells him almost everything. He listens without recording. He turns off his wire. His DCI handler watches the dead feed in real time and makes a call.",
     cliff:
-      "A second DCI operative is deployed to Nairobi. Kofi is unaware. Zara is unaware. Damu is not."
+      "DCI sends a second operative to Nairobi. Kofi doesn't know. Zara doesn't know. Damu does."
   },
+
   {
     n: "08",
     t: "The Second Operative",
     hook: "When your own people are watching you, who do you trust?",
     synopsis:
-      "Agent Pendo begins independently mapping Zara’s network, tightening the net around Kofi’s identity. Damu unexpectedly joins a meeting with Mama Sula, forcing a power shift in real time.",
+      "The second DCI operative, a sharp woman named Agent Pendo, begins mapping Zara's network independently — and starts pulling on threads that could expose Kofi's feelings as a liability. Damu, meanwhile, makes his first real play: he walks into a Mama Sula meeting and sits down uninvited.",
     cliff:
-      "Mama Sula looks at Damu and says: 'I've been expecting you.'"
+      "Mama Sula smiles at Damu across the table. 'I've been expecting you,' she says. Zara wasn't told about this meeting."
   },
+
   {
     n: "09",
     t: "The Arrangement",
     hook: "Peace between criminals is just war with better manners.",
     synopsis:
-      "A long-hidden agreement between Mama Sula, Damu, and a Treasury official is revealed: a controlled redistribution of Nairobi’s underground economy. Zara realizes she was never part of the plan — only leverage.",
+      "Mama Sula and Damu have been negotiating for weeks. The deal: Mombasa gets Westlands, Mathare stays Sula's, and the Treasury official provides cover for everyone. Zara finds out and feels the ground disappear beneath her — she was never part of the plan. She was the distraction.",
     cliff:
-      "Kofi’s cover is exposed after an internal DCI report flags his compromised status. He becomes a target overnight."
+      "Kofi's cover breaks. Not because of Zara — because Agent Pendo files a report that exposes his compromised status. By morning, Mama Sula's people are looking for him."
   },
+
   {
     n: "10",
     t: "Running Hot",
     hook: "When everyone is hunting you, the city gets very small.",
     synopsis:
-      "Kofi goes on the run. Zara races across Nairobi to reach him first. Damu observes both sides without intervening. Shida destroys the second ledger under pressure from Mama Sula’s enforcers.",
+      "The series' most kinetic episode. Kofi runs. Zara runs to find him before Mama's people do. Damu watches both with professional admiration and does nothing — for now. Shida burns the second ledger on Mama Sula's order. Zara reaches Kofi in an industrial estate in Embakasi with ten minutes to spare.",
     cliff:
-      "Kofi finally tells Zara everything — and she asks: 'How much of it was real?' He answers: 'All of it.'"
+      "Kofi tells Zara everything — who he is, what he was sent to do, what he didn't do. She doesn't speak for a long time. Then: 'How much of it was real?' He answers immediately. 'All of it.'"
   },
+
   {
     n: "11",
     t: "Black Market Sunrise",
     hook: "Sometimes justice and crime want the same thing. Just for different reasons.",
     synopsis:
-      "A coordinated operation targets the Treasury official behind the entire scheme. The mission succeeds, but collateral damage follows. Shida is critically injured in the crossfire, and Mama Sula disappears before dawn.",
+      "Zara makes a choice: she'll help Kofi bring down the Treasury official — the real target, the one who laundered the whole arrangement — but Mama Sula and Damu walk. Kofi agrees. It's not justice. It's the best they can do. The operation runs across one night and two districts. It is tense, precise, and costly.",
     cliff:
-      "The official is arrested. Shida survives — barely. Mama Sula is gone."
+      "It works. The official is arrested. But in the chaos, Shida is caught in a crossfire. She survives — barely. And Mama Sula vanishes from the city before dawn."
   },
+
   {
     n: "12",
     t: "Dust Settles",
     hook: "The city keeps moving. It always does.",
     synopsis:
-      "After the fallout, Kofi is recalled to Accra. Zara walks through a fractured Nairobi as the syndicate collapses into smaller factions. Damu sends a final message with an address in Mombasa.",
+      "Aftermath. Kofi is recalled to Accra — commendation pending, relationship unresolved. Zara walks the Mathare streets she grew up on. Without Mama Sula, the syndicate splinters. Damu sends Zara a single message: an address in Mombasa and a question mark. The final scene: Zara at a bus stop, bag at her feet, looking at her phone. The bus to Mombasa arrives. She picks up her bag.",
     cliff:
-      "Zara boards a bus to Mombasa. The screen fades to black: 'SEASON 2 — MOMBASA.'"
+      "She gets on the bus. The screen goes black. Then a title card: 'SEASON 2 — MOMBASA.'"
   }
 ];
 
@@ -123,59 +171,157 @@ export default function BlackDustSeriesPage() {
 
       <div className="page">
 
-        {/* FLOATING DUST BACKGROUND */}
+        {/* ATMOSPHERIC DUST */}
         <div className="dust"></div>
 
         {/* HERO */}
-        <div className="hero">
-          <h1 className="title">BLACK DUST</h1>
-          <p className="tagline">
-            Crime • Drama • Thriller set in the underground of Nairobi
-          </p>
-        </div>
+        <section className="hero">
+          <div className="hero-overlay"></div>
 
-        {/* EPISODE GRID */}
-        <div className="grid">
-          {episodes.map((ep, i) => (
-            <div
-              key={i}
-              className="ep-card"
-              onClick={() => setSelected(i)}
-              style={{ animationDelay: `${i * 0.05}s` }}
-            >
-              <div className="ep-number">EP {ep.n}</div>
-              <div className="ep-title">{ep.t}</div>
-              <div className="ep-hook">{ep.hook}</div>
+          <div className="hero-content">
+            <div className="hero-badges">
+              <span>CRIME DRAMA</span>
+              <span>2026</span>
+              <span>NETFLIX ORIGINAL STYLE</span>
             </div>
-          ))}
-        </div>
 
-        {/* FULL SCREEN EPISODE VIEW (NETFLIX STYLE TRANSITION) */}
+            <h1 className="title">
+              BLACK
+              <br />
+              DUST
+            </h1>
+
+            <p className="tagline">
+              In the shadows of Nairobi's underground economy,
+              loyalty is currency and betrayal is survival.
+            </p>
+
+            <div className="meta">
+              <div>
+                <small>EPISODES</small>
+                <strong>12</strong>
+              </div>
+
+              <div>
+                <small>SETTING</small>
+                <strong>Nairobi, Kenya</strong>
+              </div>
+
+              <div>
+                <small>LANGUAGE</small>
+                <strong>Swahili • English</strong>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ABOUT SERIES */}
+        <section className="section">
+          <p className="section-label">ABOUT THE SERIES</p>
+
+          <div className="about">
+            Deep inside Nairobi’s forgotten estates and luxury crime corridors,
+            Zara Otieno navigates a collapsing criminal empire built on blood,
+            politics, and loyalty. When an undercover detective infiltrates the
+            syndicate she serves, a brutal war begins between survival and truth.
+            BLACK DUST is a cinematic African crime thriller blending corruption,
+            romance, cartel warfare, and psychological betrayal.
+          </div>
+        </section>
+
+        {/* SETTINGS */}
+        <section className="section">
+          <p className="section-label">WORLD & SETTINGS</p>
+
+          <div className="settings-grid">
+            {settings.map((item, i) => (
+              <div key={i} className="setting-card">
+                {item}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* CHARACTERS */}
+        <section className="section">
+          <p className="section-label">MAIN CHARACTERS</p>
+
+          <div className="character-grid">
+            {characters.map((char, i) => (
+              <div key={i} className="character-card">
+                <div className="role">{char.role}</div>
+                <div className="name">{char.name}</div>
+                <p>{char.bio}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* EPISODES */}
+        <section className="section">
+          <p className="section-label">EPISODES</p>
+
+          <div className="episode-grid">
+            {episodes.map((ep, i) => (
+              <div
+                key={i}
+                className="episode-card"
+                onClick={() => setSelected(i)}
+              >
+                <div className="ep-number">EP {ep.n}</div>
+
+                <div className="ep-title">{ep.t}</div>
+
+                <div className="ep-hook">
+                  "{ep.hook}"
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* FULL SCREEN VIEWER */}
         {selected !== null && (
-          <div className="viewer" onClick={() => setSelected(null)}>
-            <div
-              className="viewer-content"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button className="close" onClick={() => setSelected(null)}>
+          <div className="viewer">
+            <div className="viewer-bg"></div>
+
+            <div className="viewer-content">
+
+              <button
+                className="close"
+                onClick={() => setSelected(null)}
+              >
                 ✕
               </button>
 
               <div className="viewer-header">
-                <div className="ep-tag">EP {episodes[selected].n}</div>
+                <div className="viewer-ep">
+                  EPISODE {episodes[selected].n}
+                </div>
+
                 <h2>{episodes[selected].t}</h2>
-                <p className="hook">"{episodes[selected].hook}"</p>
+
+                <p className="viewer-hook">
+                  "{episodes[selected].hook}"
+                </p>
               </div>
 
               <div className="viewer-body">
                 <p>{episodes[selected].synopsis}</p>
 
                 <div className="cliff">
-                  <strong>Cliffhanger:</strong> {episodes[selected].cliff}
+                  <span>CLIFFHANGER</span>
+                  {episodes[selected].cliff}
                 </div>
               </div>
 
-              <div className="next-bar">
+              <div className="viewer-controls">
+                {selected > 0 && (
+                  <button onClick={() => setSelected(selected - 1)}>
+                    ← Previous
+                  </button>
+                )}
+
                 {selected < episodes.length - 1 && (
                   <button onClick={() => setSelected(selected + 1)}>
                     Next Episode →
@@ -188,175 +334,318 @@ export default function BlackDustSeriesPage() {
       </div>
 
       <style>{`
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+
+        body {
+          background: #080808;
+        }
 
         .page {
           min-height: 100vh;
-          background:
-            radial-gradient(circle at 20% 30%, rgba(200,169,110,0.08), transparent 40%),
-            radial-gradient(circle at 80% 70%, rgba(255,255,255,0.05), transparent 45%),
-            linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.95)),
-            url('https://images.unsplash.com/photo-1532372816041-35d5f8a5a7d6?auto=format&fit=crop&w=2000&q=80');
-          background-size: cover;
-          background-position: center;
-          background-attachment: fixed;
-          padding: 3rem;
           color: #F0EBE0;
           font-family: 'IBM Plex Mono', monospace;
           overflow-x: hidden;
+          background:
+            linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.98)),
+            url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=2000&auto=format&fit=crop');
+          background-size: cover;
+          background-position: center;
+          background-attachment: fixed;
           position: relative;
         }
 
-        /* 🌫️ ANIMATED DUST LAYER */
         .dust {
           position: fixed;
           inset: 0;
           pointer-events: none;
-          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
-          animation: drift 12s linear infinite;
+          opacity: 0.07;
+          background-image:
+            radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px);
+          background-size: 4px 4px;
+          animation: drift 18s linear infinite;
         }
 
         @keyframes drift {
-          0% { transform: translateY(0); }
-          100% { transform: translateY(-200px); }
+          from { transform: translateY(0px); }
+          to { transform: translateY(-300px); }
         }
 
         .hero {
-          text-align: center;
-          margin-bottom: 3rem;
+          min-height: 90vh;
+          position: relative;
+          display: flex;
+          align-items: center;
+          padding: 5rem 8%;
+        }
+
+        .hero-overlay {
+          position: absolute;
+          inset: 0;
+          background:
+            linear-gradient(to right,
+            rgba(0,0,0,0.95),
+            rgba(0,0,0,0.5),
+            transparent);
+        }
+
+        .hero-content {
+          position: relative;
+          z-index: 2;
+          max-width: 700px;
+        }
+
+        .hero-badges {
+          display: flex;
+          gap: 1rem;
+          flex-wrap: wrap;
+          margin-bottom: 1.5rem;
+        }
+
+        .hero-badges span {
+          border: 1px solid rgba(200,169,110,0.3);
+          color: #C8A96E;
+          font-size: 0.6rem;
+          padding: 6px 12px;
+          letter-spacing: 3px;
         }
 
         .title {
           font-family: 'Bebas Neue', sans-serif;
-          font-size: 5rem;
-          letter-spacing: 4px;
-          text-shadow: 0 10px 40px rgba(0,0,0,0.8);
+          font-size: clamp(5rem, 12vw, 10rem);
+          line-height: 0.85;
+          letter-spacing: 5px;
         }
 
         .tagline {
-          color: rgba(255,255,255,0.6);
-          margin-top: 1rem;
+          margin-top: 1.5rem;
+          color: rgba(255,255,255,0.65);
+          line-height: 1.8;
+          max-width: 600px;
         }
 
-        /* EPISODE GRID */
-        .grid {
+        .meta {
+          display: flex;
+          gap: 3rem;
+          margin-top: 2rem;
+          flex-wrap: wrap;
+        }
+
+        .meta small {
+          display: block;
+          color: rgba(255,255,255,0.35);
+          margin-bottom: 0.5rem;
+          letter-spacing: 3px;
+          font-size: 0.55rem;
+        }
+
+        .meta strong {
+          color: #C8A96E;
+        }
+
+        .section {
+          padding: 5rem 8%;
+        }
+
+        .section-label {
+          color: rgba(200,169,110,0.5);
+          letter-spacing: 5px;
+          font-size: 0.6rem;
+          margin-bottom: 2rem;
+        }
+
+        .about {
+          max-width: 900px;
+          line-height: 2;
+          color: rgba(255,255,255,0.7);
+          font-size: 1rem;
+        }
+
+        .settings-grid,
+        .character-grid,
+        .episode-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
           gap: 1.5rem;
         }
 
-        .ep-card {
-          background: rgba(17,17,16,0.85);
-          padding: 1.5rem;
+        .setting-card,
+        .character-card,
+        .episode-card {
+          background: rgba(15,15,15,0.9);
           border: 1px solid rgba(200,169,110,0.15);
-          cursor: pointer;
+          padding: 1.5rem;
           transition: 0.4s ease;
-          opacity: 0;
-          transform: translateY(20px);
-          animation: fadeUp 0.6s forwards;
         }
 
-        @keyframes fadeUp {
-          to { opacity: 1; transform: translateY(0); }
+        .setting-card:hover,
+        .character-card:hover,
+        .episode-card:hover {
+          transform: translateY(-6px);
+          border-color: rgba(200,169,110,0.5);
         }
 
-        .ep-card:hover {
-          transform: translateY(-8px) scale(1.02);
-          border-color: rgba(200,169,110,0.6);
+        .role {
+          color: #C8A96E;
+          font-size: 0.6rem;
+          letter-spacing: 3px;
+          margin-bottom: 0.5rem;
+        }
+
+        .name {
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: 2rem;
+          margin-bottom: 0.8rem;
+        }
+
+        .character-card p {
+          color: rgba(255,255,255,0.6);
+          line-height: 1.7;
+          font-size: 0.85rem;
         }
 
         .ep-number {
-          font-size: 0.7rem;
           color: #C8A96E;
-          margin-bottom: 0.5rem;
+          font-size: 0.7rem;
+          margin-bottom: 0.6rem;
         }
 
         .ep-title {
           font-family: 'Bebas Neue', sans-serif;
-          font-size: 1.8rem;
+          font-size: 2rem;
           margin-bottom: 0.5rem;
         }
 
         .ep-hook {
-          font-size: 0.75rem;
-          color: rgba(255,255,255,0.6);
+          color: rgba(255,255,255,0.55);
+          font-style: italic;
+          font-size: 0.8rem;
         }
 
-        /* 🎬 FULLSCREEN VIEWER (STREAMING TRANSITION) */
         .viewer {
           position: fixed;
           inset: 0;
-          background: rgba(0,0,0,0.92);
+          z-index: 100;
           display: flex;
           align-items: center;
           justify-content: center;
-          animation: zoomIn 0.35s ease;
+          padding: 2rem;
         }
 
-        @keyframes zoomIn {
-          from { opacity: 0; transform: scale(1.05); }
-          to { opacity: 1; transform: scale(1); }
+        .viewer-bg {
+          position: absolute;
+          inset: 0;
+          background: rgba(0,0,0,0.94);
+          backdrop-filter: blur(8px);
         }
 
         .viewer-content {
-          width: 90%;
-          max-width: 800px;
-          background: #111110;
-          border: 1px solid rgba(200,169,110,0.3);
-          padding: 2rem;
           position: relative;
+          z-index: 2;
+          width: 100%;
+          max-width: 900px;
+          background: #111110;
+          border: 1px solid rgba(200,169,110,0.2);
+          padding: 3rem;
+          animation: viewerIn 0.35s ease;
+        }
+
+        @keyframes viewerIn {
+          from {
+            opacity: 0;
+            transform: scale(1.04);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
         }
 
         .close {
           position: absolute;
-          top: 10px;
-          right: 15px;
-          background: transparent;
+          top: 20px;
+          right: 20px;
+          background: none;
           border: none;
-          color: #fff;
+          color: white;
           font-size: 1.2rem;
           cursor: pointer;
         }
 
-        .ep-tag {
+        .viewer-ep {
           color: #C8A96E;
-          font-size: 0.7rem;
-          margin-bottom: 0.5rem;
+          letter-spacing: 4px;
+          font-size: 0.65rem;
+          margin-bottom: 1rem;
         }
 
         .viewer-header h2 {
           font-family: 'Bebas Neue', sans-serif;
-          font-size: 2.5rem;
+          font-size: 4rem;
+          line-height: 1;
         }
 
-        .hook {
-          color: #C8A96E;
+        .viewer-hook {
+          margin-top: 1rem;
+          color: rgba(200,169,110,0.8);
           font-style: italic;
-          margin: 1rem 0;
         }
 
         .viewer-body {
-          color: rgba(255,255,255,0.75);
-          line-height: 1.7;
+          margin-top: 2rem;
+          line-height: 2;
+          color: rgba(255,255,255,0.72);
         }
 
         .cliff {
-          margin-top: 1rem;
+          margin-top: 2rem;
+          border-left: 2px solid rgba(255,80,80,0.6);
+          padding-left: 1rem;
           color: #D08080;
         }
 
-        .next-bar {
-          margin-top: 2rem;
-          display: flex;
-          justify-content: flex-end;
+        .cliff span {
+          display: block;
+          margin-bottom: 0.5rem;
+          font-size: 0.6rem;
+          letter-spacing: 3px;
         }
 
-        .next-bar button {
+        .viewer-controls {
+          display: flex;
+          justify-content: space-between;
+          margin-top: 3rem;
+          gap: 1rem;
+          flex-wrap: wrap;
+        }
+
+        .viewer-controls button {
           background: #C8A96E;
           border: none;
-          padding: 10px 16px;
+          padding: 12px 18px;
           cursor: pointer;
           font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+          .title {
+            font-size: 5rem;
+          }
+
+          .viewer-content {
+            padding: 2rem;
+          }
+
+          .viewer-header h2 {
+            font-size: 2.5rem;
+          }
+
+          .section {
+            padding: 4rem 6%;
+          }
         }
       `}</style>
     </>
