@@ -18,17 +18,18 @@ const Navigation = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu when route changes
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [location]);
 
+  // ✅ ADDED SHOP HERE
   const navLinks = [
     { label: 'Home', href: '/' },
     { label: 'About', href: '/about' },
     { label: 'Services', href: '/services' },
     { label: 'Blog', href: '/blog' },
-    { label: 'Stories', href: '/stories', highlight: true }, // ✅ ADDED
+    { label: 'Stories', href: '/stories', highlight: true },
+    { label: 'Shop', href: '/shop' }, // 👈 NEW
     { label: 'Contact', href: '/contact' },
   ];
 
@@ -160,7 +161,6 @@ const Navigation = () => {
       >
         <div className="flex flex-col items-center justify-center h-full space-y-8">
 
-          {/* User Info */}
           {isAuthenticated && (
             <div className="flex items-center gap-3 mb-4">
               <img
@@ -189,7 +189,7 @@ const Navigation = () => {
             >
               {link.label}
 
-              {/* Mobile NEW badge */}
+              {/* Mobile badge */}
               {link.label === 'Stories' && (
                 <span className="ml-2 text-sm text-red-500 animate-pulse">
                   NEW

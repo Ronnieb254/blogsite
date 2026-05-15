@@ -84,42 +84,32 @@ const episodes = [
   }
 ];
 
-const sounds = {
-  wind: new Audio(
-    "https://cdn.pixabay.com/audio/2022/03/15/audio_5c6b1c2c0f.mp3"
-  ),
-  desert: new Audio(
-    "https://cdn.pixabay.com/audio/2022/10/16/audio_2f5c2a1c3d.mp3"
-  ),
-  war: new Audio(
-    "https://cdn.pixabay.com/audio/2022/03/10/audio_7b1c9d2c1f.mp3"
-  )
-};
+
 
 export default function LastKingdomOfKush() {
   const [selected, setSelected] = useState<number | null>(null);
   const [transitioning, setTransitioning] = useState(false);
 
-  const playSoundForEpisode = (id: number) => {
-    Object.values(sounds).forEach((s) => {
-      s.pause();
-      s.currentTime = 0;
-    });
+  // const playSoundForEpisode = (id: number) => {
+  //   Object.values(sounds).forEach((s) => {
+  //     s.pause();
+  //     s.currentTime = 0;
+  //   });
 
-    if (id <= 3) {
-      sounds.wind.loop = true;
-      sounds.wind.volume = 0.4;
-      sounds.wind.play();
-    } else if (id <= 7) {
-      sounds.desert.loop = true;
-      sounds.desert.volume = 0.4;
-      sounds.desert.play();
-    } else {
-      sounds.war.loop = true;
-      sounds.war.volume = 0.5;
-      sounds.war.play();
-    }
-  };
+  //   if (id <= 3) {
+  //     sounds.wind.loop = true;
+  //     sounds.wind.volume = 0.4;
+  //     sounds.wind.play();
+  //   } else if (id <= 7) {
+  //     sounds.desert.loop = true;
+  //     sounds.desert.volume = 0.4;
+  //     sounds.desert.play();
+  //   } else {
+  //     sounds.war.loop = true;
+  //     sounds.war.volume = 0.5;
+  //     sounds.war.play();
+  //   }
+  // };
 
   const goToNextEpisode = () => {
     if (selected === null) return;
@@ -134,7 +124,7 @@ export default function LastKingdomOfKush() {
       setTimeout(() => {
         if (next <= episodes.length) {
           setSelected(next);
-          playSoundForEpisode(next);
+          // playSoundForEpisode(next);
         }
         setTransitioning(false);
       }, 500);
@@ -186,7 +176,7 @@ export default function LastKingdomOfKush() {
               key={ep.id}
               onClick={() => {
                 setSelected(ep.id);
-                playSoundForEpisode(ep.id);
+                // playSoundForEpisode(ep.id);
               }}
               className="cursor-pointer bg-white/5 border border-white/10 p-4 hover:bg-white/10 transition"
             >

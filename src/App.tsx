@@ -18,6 +18,7 @@ import Stories from './pages/Stories';
 import Story from './pages/Story';
 import BlackDust from './pages/BlackDust';
 import LastKingDom from './pages/LastKingDom';
+import Shop from './pages/Shop';
 
 function Layout() {
   const location = useLocation();
@@ -48,6 +49,7 @@ function Layout() {
         <Route path="/login" element={<Login />} />
         <Route path="/termsconditions" element={<TermsConditions />} />
         <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+        <Route path="/shop" element={<Shop />} />
       </Routes>
 
       {<Footer />}
