@@ -298,7 +298,7 @@ const handleDelete = async () => {
             </div>
 
             {/* Author Actions (if authenticated and author) */}
-            {isAuthenticated && isAuthor && (
+            {/* {isAuthenticated && isAuthor && (
               <div className={`mt-12 pt-8 border-t border-gray-200 transition-all duration-600 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               }`}
@@ -314,13 +314,7 @@ const handleDelete = async () => {
                     <Edit className="w-4 h-4 mr-2" />
                     Edit Post
                   </Link>
-                  {/* <button
-                    onClick={() => setShowDeleteConfirm(true)}
-                    className="inline-flex items-center px-4 py-2 border border-red-600 text-red-600 text-sm font-medium hover:bg-red-600 hover:text-white transition-colors duration-300"
-                  >
-                    <Trash2 className="w-4 h-4 mr-2" />
-                    Delete Post
-                  </button> */}
+                 
                 <button
     onClick={handleDelete}
     disabled={deleting}
@@ -331,7 +325,7 @@ const handleDelete = async () => {
   </button>
                 </div>
               </div>
-            )}
+            )} */}
 
             {/* Share/Tags Section */}
             <div className={`mt-12 pt-8 border-t border-gray-200 transition-all duration-600 ${
