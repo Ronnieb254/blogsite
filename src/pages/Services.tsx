@@ -3,7 +3,7 @@ import { ArrowRight, Compass, Palette, Monitor, TrendingUp, Layers, MessageSquar
 
 const Services = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
     const observer = new IntersectionObserver(

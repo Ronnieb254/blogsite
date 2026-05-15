@@ -3,7 +3,7 @@ import { ArrowRight, Mail, Phone, MapPin, Send, Linkedin, Twitter, Instagram } f
 
 const Contact = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
