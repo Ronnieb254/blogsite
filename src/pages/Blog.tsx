@@ -320,7 +320,7 @@ const Blog = () => {
               <Tag className="w-5 h-5" />
             </div>
             <h2 className="text-2xl sm:text-3xl font-semibold mb-4">
-              Subscribe to My Newsletter
+              Subscribe to Our Newsletter
             </h2>
             <p className="text-gray-600 mb-8">
               Get the latest insights on branding, strategy, and design delivered straight to your inbox.

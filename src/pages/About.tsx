@@ -81,10 +81,10 @@ const About = () => {
   }, []);
 
   const stats = [
-    { value: '150+', label: 'Projects Delivered' },
-    { value: '12', label: 'Years Experience' },
+    { value: '50+', label: 'Projects Delivered' },
+    { value: '5', label: 'Years Experience' },
     { value: '98%', label: 'Client Satisfaction' },
-    { value: '50+', label: 'Happy Clients' },
+    { value: '10+', label: 'Happy Clients' },
   ];
 
   const values = [
@@ -165,7 +165,7 @@ const About = () => {
                   that exceed expectations.
                 </p>
                 <p>
-                  My journey began over twelve years ago when I discovered my passion for helping 
+                  My journey began over five years ago when I discovered my passion for helping 
                   brands find their unique voice. Since then, I've had the privilege of working with 
                   startups, established companies, and everything in between.
                 </p>

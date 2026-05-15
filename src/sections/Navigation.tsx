@@ -28,13 +28,12 @@ const Navigation = () => {
     { label: 'About', href: '/about' },
     { label: 'Services', href: '/services' },
     { label: 'Blog', href: '/blog' },
+    { label: 'Stories', href: '/stories', highlight: true }, // ✅ ADDED
     { label: 'Contact', href: '/contact' },
   ];
 
   const isActive = (path: string) => {
-    if (path === '/') {
-      return location.pathname === '/';
-    }
+    if (path === '/') return location.pathname === '/';
     return location.pathname.startsWith(path);
   };
 
@@ -49,17 +48,18 @@ const Navigation = () => {
       >
         <div className="w-full px-6 sm:px-8 lg:px-16 xl:px-24">
           <div className="flex items-center justify-between h-20">
+
             {/* Logo */}
-           <Link
-  to="/"
-  className="flex items-center h-20 transition-transform duration-300 hover:scale-105"
->
-  <img
-    src="/thoughtcanva-logo.svg"
-    alt="Thought Canva Logo"
-    className="h-20 w-60 object-contain"
-  />
-</Link>
+            <Link
+              to="/"
+              className="flex items-center h-20 transition-transform duration-300 hover:scale-105"
+            >
+              <img
+                src="/thoughtcanva-logo.svg"
+                alt="Thought Canva Logo"
+                className="h-20 w-60 object-contain"
+              />
+            </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-10">
@@ -70,13 +70,25 @@ const Navigation = () => {
                   className={`relative text-sm font-medium transition-colors duration-300 group ${
                     isActive(link.href)
                       ? 'text-black'
+                      : link.highlight
+                      ? 'text-red-600'
                       : 'text-gray-700 hover:text-black'
                   }`}
                 >
                   {link.label}
+
+                  {/* NEW badge for Stories */}
+                  {link.label === 'Stories' && (
+                    <span className="ml-2 text-[10px] text-red-600 animate-pulse">
+                      NEW
+                    </span>
+                  )}
+
                   <span
                     className={`absolute -bottom-1 left-0 h-0.5 bg-red-600 transition-all duration-300 ${
-                      isActive(link.href) ? 'w-full' : 'w-0 group-hover:w-full'
+                      isActive(link.href)
+                        ? 'w-full'
+                        : 'w-0 group-hover:w-full'
                     }`}
                   />
                 </Link>
@@ -87,9 +99,13 @@ const Navigation = () => {
             <div className="hidden md:flex items-center gap-4">
               {isAuthenticated ? (
                 <>
-                  <Link to="/blog/create" className="btn-primary text-sm py-2.5 px-5">
+                  <Link
+                    to="/blog/create"
+                    className="btn-primary text-sm py-2.5 px-5"
+                  >
                     Write Post
                   </Link>
+
                   <div className="flex items-center gap-3 pl-4 border-l border-gray-200">
                     <img
                       src={user?.avatar || '/hero-portrait.jpg'}
@@ -131,6 +147,7 @@ const Navigation = () => {
                 <Menu className="w-6 h-6" />
               )}
             </button>
+
           </div>
         </div>
       </nav>
@@ -142,7 +159,8 @@ const Navigation = () => {
         }`}
       >
         <div className="flex flex-col items-center justify-center h-full space-y-8">
-          {/* User Info (Mobile) */}
+
+          {/* User Info */}
           {isAuthenticated && (
             <div className="flex items-center gap-3 mb-4">
               <img
@@ -150,7 +168,9 @@ const Navigation = () => {
                 alt={user?.fullName}
                 className="w-12 h-12 rounded-full object-cover"
               />
-              <span className="text-lg font-medium">{user?.fullName}</span>
+              <span className="text-lg font-medium">
+                {user?.fullName}
+              </span>
             </div>
           )}
 
@@ -161,13 +181,20 @@ const Navigation = () => {
               className={`text-2xl font-medium transition-colors duration-300 ${
                 isActive(link.href)
                   ? 'text-red-600'
+                  : link.highlight
+                  ? 'text-red-600'
                   : 'text-gray-800 hover:text-red-600'
               }`}
-              style={{
-                animationDelay: `${index * 100}ms`,
-              }}
+              style={{ animationDelay: `${index * 100}ms` }}
             >
               {link.label}
+
+              {/* Mobile NEW badge */}
+              {link.label === 'Stories' && (
+                <span className="ml-2 text-sm text-red-500 animate-pulse">
+                  NEW
+                </span>
+              )}
             </Link>
           ))}
 
@@ -197,6 +224,7 @@ const Navigation = () => {
               </>
             )}
           </div>
+
         </div>
       </div>
     </>

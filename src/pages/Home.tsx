@@ -88,14 +88,14 @@ const Home = () => {
       id: 1,
       category: 'Strategy',
       title: 'The Art of Building a Brand That Lasts',
-      date: 'December 15, 2024',
+      date: 'May 15, 2026',
       image: '/blog-1.jpg',
     },
     {
       id: 2,
       category: 'Technology',
       title: '5 Digital Trends Shaping 2026',
-      date: 'December 10, 2024',
+      date: 'May 14, 2026',
       image: '/blog-2.jpg',
     },
   ];

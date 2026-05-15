@@ -14,6 +14,10 @@ import Contact from './pages/Contact';
 import Login from './pages/Login';
 import TermsConditions from './pages/TermsConditions';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import Stories from './pages/Stories';
+import Story from './pages/Story';
+import BlackDust from './pages/BlackDust';
+import LastKingDom from './pages/LastKingDom';
 
 function Layout() {
   const location = useLocation();
@@ -21,7 +25,7 @@ function Layout() {
   // const hideNavRoutes = ['/login', '/blog/create', '/blog/update/:id'];
   const hideNav =
   ['/login', '/blog/create'].includes(location.pathname) ||
-  location.pathname.startsWith('/blog/update/');
+  location.pathname.startsWith('/blog/update/') || location.pathname.startsWith('/story/') ;
   // const hideNav = hideNavRoutes.includes(location.pathname);
 
   return (
@@ -33,6 +37,10 @@ function Layout() {
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />
         <Route path="/blog" element={<Blog />} />
+        <Route path="/stories" element={<Stories />} />
+        <Route path="/story/rift" element={<Story />} />
+        <Route path="/story/black-dust" element={<BlackDust />} />
+        <Route path="/story/last-kingdom-of-kush" element={<LastKingDom />} />
         <Route path="/blog/:id" element={<BlogPost />} />
         <Route path="/blog/update/:id" element={<UpdateBlogPost />} />
         <Route path="/blog/create" element={<CreateBlogPost />} />
