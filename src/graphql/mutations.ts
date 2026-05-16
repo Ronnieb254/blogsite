@@ -99,3 +99,17 @@ mutation Subscribe($input: SubscriberInput!) {
   }
 }
 `;
+export const CREATE_CONTACT_MUTATION = gql`
+  mutation CreateContact($input: ContactInput!) {
+  createContact(input: $input) {
+    id
+    name
+    email
+    phone
+    subject
+    message
+    isRead
+    createdAt
+  }
+}
+`;
