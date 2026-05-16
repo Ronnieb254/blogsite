@@ -169,7 +169,7 @@ const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
           showConfirmButton: false,
         });
 
-        navigate(`/blog/${post.id}`);
+        navigate(`/blog`);
     window.location.reload();
 
 
