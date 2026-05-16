@@ -478,7 +478,8 @@ const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
       '/blog-3.jpg',
       '/hero-background.jpg',
       '/cta-background.jpg',
-      '/about-portrait.jpg'
+      '/about-portrait.jpg',
+       '/designw.jpg'
     ].map((img) => (
       <button
         key={img}
