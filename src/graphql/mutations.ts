@@ -89,3 +89,13 @@ mutation UpdateBlog($updateBlogId: ID!, $input: BlogInput!) {
   }
 }
 `;
+//subscribeToNewsletter(email: String!): Boolean
+export const SUBSCRIBE_NEWSLETTER_MUTATION = gql`
+mutation Subscribe($input: SubscriberInput!) {
+  subscribe(input: $input) {
+    id
+    message
+    success
+  }
+}
+`;

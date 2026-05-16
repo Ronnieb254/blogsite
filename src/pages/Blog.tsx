@@ -3,7 +3,23 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Calendar, Search, Tag, User, Plus, LogOut, Lock } from 'lucide-react';
 import { useBlog } from '../context/BlogContext';
 import { useAuth } from '../context/AuthContext';
+import Swal from "sweetalert2";
+import { SUBSCRIBE_NEWSLETTER_MUTATION } from '../graphql/mutations';
+// import { useMutation } from '@apollo/client';
+import { useMutation } from "@apollo/client/react";
 
+type SubscribeResponse = {
+  subscribe: {
+    id: string;
+    message: string;
+    success: boolean;
+  };
+};
+type SubscribeVariables = {
+  input: {
+    email: string;
+  };
+};
 const Blog = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(true);
@@ -12,6 +28,10 @@ const Blog = () => {
   
   const { posts, getPreviewContent } = useBlog();
   const { isAuthenticated, user, logout } = useAuth();
+  const [email, setEmail] = useState("");
+const [subscribe, {loading}] = useMutation<SubscribeResponse, SubscribeVariables>(
+  SUBSCRIBE_NEWSLETTER_MUTATION
+);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -43,7 +63,67 @@ const Blog = () => {
       post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
+   const handleSubmit = async (e:any) => {
+    e.preventDefault();
 
+    if (!email) {
+      Swal.fire({
+        icon: "error",
+        title: "Email required",
+        text: "Please enter your email address",
+      });
+      return;
+    }
+
+   try {
+ const result = await subscribe({
+  variables: {
+    input: { email },
+  },
+});
+
+
+const response = result.data?.subscribe;
+
+console.log("Subscription response:", response);
+  
+if (response?.success) {
+  Swal.fire({
+    icon: "success",
+    title: "Subscribed!",
+    text: response.message,
+  });
+} else if (response?.message?.toLowerCase().includes("already")) {
+  Swal.fire({
+    icon: "info",
+    title: "Already Subscribed",
+    text: response.message,
+  });
+} else {
+  Swal.fire({
+    icon: "error",
+    title: "Subscription Failed",
+    text: response?.message || "Try again later.",
+  });
+}
+  // const response = result?.data?.subscribe;
+
+} catch (error: unknown) {
+  console.error(error);
+
+  let message = "Something went wrong.";
+
+  if (error instanceof Error) {
+    message = error.message;
+  }
+
+  Swal.fire({
+    icon: "error",
+    title: "Server Error",
+    text: message,
+  });
+}
+  };
   const featuredPost = posts.find((post) => post.featured);
   const regularPosts = filteredPosts.filter((post) => !post.featured);
 
@@ -310,7 +390,7 @@ const Blog = () => {
       </section>
 
       {/* Newsletter */}
-      <section className="relative py-24 sm:py-32 bg-gray-50 overflow-hidden">
+      {/* <section className="relative py-24 sm:py-32 bg-gray-50 overflow-hidden">
         <div className="w-full px-6 sm:px-8 lg:px-16 xl:px-24">
           <div className={`max-w-2xl mx-auto text-center transition-all duration-700 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
@@ -337,7 +417,50 @@ const Blog = () => {
             </form>
           </div>
         </div>
-      </section>
+      </section> */}
+       <section className="relative py-24 sm:py-32 bg-gray-50 overflow-hidden">
+      <div className="w-full px-6 sm:px-8 lg:px-16 xl:px-24">
+        <div
+          className={`max-w-2xl mx-auto text-center transition-all duration-700 ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+          style={{
+            transitionDelay: "800ms",
+            transitionTimingFunction: "var(--ease-expo-out)",
+          }}
+        >
+          <h2 className="text-2xl sm:text-3xl font-semibold mb-4">
+            Weekly Newsletter
+          </h2>
+
+          <p className="text-gray-600 mb-8">
+            Get weekly insights on branding, strategy, design, and digital growth.
+          </p>
+
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto"
+          >
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email"
+              className="flex-1 px-4 py-3 border border-gray-200 focus:border-black focus:outline-none transition-colors duration-300"
+              disabled={loading}
+            />
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="btn-primary whitespace-nowrap"
+            >
+              {loading ? "Subscribing..." : "Subscribe"}
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
     </main>
   );
 };
