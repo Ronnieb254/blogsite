@@ -33,7 +33,7 @@ const Footer = () => {
     { label: 'Services', href: '/services' },
     { label: 'Blog', href: '/blog' },
     { label: 'Stories', href: '/stories' }, // 👈 NEW
-    { label: 'Shop', href: '/shop' },       // 👈 NEW
+    // { label: 'Shop', href: '/shop' },       // 👈 NEW
     { label: 'Contact', href: '/contact' },
   ];
 

@@ -29,7 +29,7 @@ const Navigation = () => {
     { label: 'Services', href: '/services' },
     { label: 'Blog', href: '/blog' },
     { label: 'Stories', href: '/stories', highlight: true },
-    { label: 'Shop', href: '/shop' }, // 👈 NEW
+    // { label: 'Shop', href: '/shop' }, // 👈 NEW
     { label: 'Contact', href: '/contact' },
   ];
 
