@@ -26,3 +26,35 @@ export const BLOGS_QUERY = gql`
     }
   }
 `;
+
+/* ===================== QUERIES ===================== */
+
+export const GET_CONTACTS = gql`
+  query Contacts($unreadOnly: Boolean, $limit: Int) {
+    contacts(unreadOnly: $unreadOnly, limit: $limit) {
+      id
+      name
+      email
+      phone
+      subject
+      message
+      isRead
+      createdAt
+    }
+  }
+`;
+
+export const GET_CONTACT = gql`
+  query Contact($contactId: ID!) {
+    contact(id: $contactId) {
+      id
+      name
+      email
+      phone
+      subject
+      message
+      isRead
+      createdAt
+    }
+  }
+`;

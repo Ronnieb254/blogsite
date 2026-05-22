@@ -113,3 +113,23 @@ export const CREATE_CONTACT_MUTATION = gql`
   }
 }
 `;
+
+/* ===================== MUTATIONS ===================== */
+
+export const MARK_READ = gql`
+  mutation MarkContactRead($markContactReadId: ID!, $read: Boolean!) {
+    markContactRead(id: $markContactReadId, read: $read) {
+      id
+      email
+      message
+    }
+  }
+`;
+
+export const DELETE_CONTACT = gql`
+  mutation DeleteContact($deleteContactId: ID!) {
+    deleteContact(id: $deleteContactId) {
+      id
+    }
+  }
+`;

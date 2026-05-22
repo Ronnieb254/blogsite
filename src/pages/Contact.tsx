@@ -4,9 +4,9 @@ import {
   Phone,
   MapPin,
   Send,
-  Linkedin,
-  Twitter,
-  Instagram,
+  // Linkedin,
+  // Twitter,
+  // Instagram,
 } from "lucide-react";
 import Swal from "sweetalert2";
 import { useMutation } from "@apollo/client/react";
@@ -144,23 +144,23 @@ const Contact = () => {
     },
   ];
 
-  const socialLinks = [
-    {
-      icon: <Linkedin className="w-5 h-5" />,
-      label: "LinkedIn",
-      href: "#",
-    },
-    {
-      icon: <Twitter className="w-5 h-5" />,
-      label: "Twitter",
-      href: "#",
-    },
-    {
-      icon: <Instagram className="w-5 h-5" />,
-      label: "Instagram",
-      href: "#",
-    },
-  ];
+  // const socialLinks = [
+  //   {
+  //     icon: <Linkedin className="w-5 h-5" />,
+  //     label: "LinkedIn",
+  //     href: "#",
+  //   },
+  //   {
+  //     icon: <Twitter className="w-5 h-5" />,
+  //     label: "Twitter",
+  //     href: "#",
+  //   },
+  //   {
+  //     icon: <Instagram className="w-5 h-5" />,
+  //     label: "Instagram",
+  //     href: "#",
+  //   },
+  // ];
 
   const services = [
     "Brand Strategy",
@@ -381,7 +381,7 @@ const Contact = () => {
                   ))}
                 </div>
 
-                <div className="border-t border-gray-200 pt-8">
+                {/* <div className="border-t border-gray-200 pt-8">
                   <h4 className="text-sm font-medium text-gray-500 mb-4">
                     Follow Us
                   </h4>
@@ -397,7 +397,7 @@ const Contact = () => {
                       </a>
                     ))}
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

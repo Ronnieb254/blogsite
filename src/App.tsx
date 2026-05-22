@@ -19,13 +19,14 @@ import Story from './pages/Story';
 import BlackDust from './pages/BlackDust';
 import LastKingDom from './pages/LastKingDom';
 import Shop from './pages/Shop';
+import AdminContacts from './pages/AdminLayout';
 
 function Layout() {
   const location = useLocation();
 
   // const hideNavRoutes = ['/login', '/blog/create', '/blog/update/:id'];
   const hideNav =
-  ['/login', '/blog/create'].includes(location.pathname) ||
+  ['/login', '/blog/create', '/admincontact'].includes(location.pathname) ||
   location.pathname.startsWith('/blog/update/') || location.pathname.startsWith('/story/') ;
   // const hideNav = hideNavRoutes.includes(location.pathname);
 
@@ -50,6 +51,7 @@ function Layout() {
         <Route path="/termsconditions" element={<TermsConditions />} />
         <Route path="/privacypolicy" element={<PrivacyPolicy />} />
         <Route path="/shop" element={<Shop />} />
+        <Route path="/admincontact" element={<AdminContacts />} />
       </Routes>
 
       {<Footer />}

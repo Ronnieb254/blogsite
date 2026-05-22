@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Linkedin, Twitter, Instagram, ArrowUpRight } from 'lucide-react';
+import {
+  //  Linkedin, Twitter, Instagram, 
+  ArrowUpRight } from 'lucide-react';
 
 const Footer = () => {
   const footerRef = useRef<HTMLDivElement>(null);
@@ -43,11 +45,11 @@ const Footer = () => {
     { label: 'Digital Consulting', href: '/services' },
   ];
 
-  const socialLinks = [
-    { icon: <Linkedin className="w-5 h-5" />, label: 'LinkedIn', href: '#' },
-    { icon: <Twitter className="w-5 h-5" />, label: 'Twitter', href: '#' },
-    { icon: <Instagram className="w-5 h-5" />, label: 'Instagram', href: '#' },
-  ];
+  // const socialLinks = [
+  //   { icon: <Linkedin className="w-5 h-5" />, label: 'LinkedIn', href: '#' },
+  //   { icon: <Twitter className="w-5 h-5" />, label: 'Twitter', href: '#' },
+  //   { icon: <Instagram className="w-5 h-5" />, label: 'Instagram', href: '#' },
+  // ];
 
   return (
     <footer
@@ -162,7 +164,7 @@ const Footer = () => {
               Connect
             </h4>
 
-            <div className="flex space-x-4">
+            {/* <div className="flex space-x-4">
               {socialLinks.map((social, index) => (
                 <a
                   key={social.label}
@@ -175,7 +177,7 @@ const Footer = () => {
                   {social.icon}
                 </a>
               ))}
-            </div>
+            </div> */}
 
             <a
               href="mailto:hello@thoughtcanva.com"
