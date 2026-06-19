@@ -133,13 +133,13 @@ const Contact = () => {
     {
       icon: <Phone className="w-5 h-5" />,
       label: "Phone No.",
-      value: "+254 (769) 940599",
-      href: "tel:+254769940599",
+      value: "+254 (711) 571261",
+      href: "tel:+254711571261",
     },
     {
       icon: <MapPin className="w-5 h-5" />,
       label: "Location",
-      value: "P.O. Box 12345-00100, Nairobi, Kenya",
+      value: "P.O. Box 00100, Nairobi, Kenya",
       href: "#",
     },
   ];
